@@ -4,6 +4,7 @@ class User < ApplicationRecord
   validates :email, presence: true
   validate :validate_email
 
+
   private
 
   # email属性が有効なメールアドレスフォーマットであることを検証するメソッド
