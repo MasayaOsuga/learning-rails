@@ -6,5 +6,7 @@ Rails.application.routes.draw do
 
   get "ping", to: "pings#ping"
 
+
+  get "users", to: "users#index"
   post "users", to: "users#create"
 end
