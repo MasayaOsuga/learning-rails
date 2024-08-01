@@ -43,8 +43,37 @@ RSpec.describe "Users", type: :request do
         user = User.last
         res = JSON.parse(response.body)["user"]
         expect(res).to eq(user.as_json)
-        
       end
     end
   end
+
+  describe "PATCH /users/:id" do
+    describe "when valid" do
+      before do
+        @user = FactoryBot.create(:user)
+        @params = {
+          user: {
+            name: "new name"
+          }
+        }
+        patch "/users/#{@user[:id]}", params: @params
+      end
+
+      it "returns 200" do
+        expect(response).to have_http_status(200)
+      end
+
+      it "updates user" do
+        @user.reload
+        expect(@user[:name]).to eq("new name")
+      end
+
+      it "returns user" do
+        res = JSON.parse(response.body)["user"]
+        expect(res["name"]).to eq("new name")
+      end
+    end
+  end
+
+
 end
